@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Get started with MapView - Create a 2D map</title>
+<style>
+  html, body, #viewDiv {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+  }
+</style>
+<link rel="stylesheet" href="https://js.arcgis.com/4.3/esri/css/main.css">
+<script src="https://js.arcgis.com/4.3/"></script>
+<script>
+require([
+  "esri/layers/FeatureLayer",
+  "esri/Map",
+  "esri/views/MapView",
+  "esri/layers/Layer",
+  "dojo/domReady!"
+], function(FeatureLayer, Map, MapView, Layer){
+
+  var layer = new FeatureLayer({
+      url: "http://labgeo.recife.ifpe.edu.br:8080/arcgis/rest/services/TechPark/TP_Map/MapServer/0"
+    });
+    var layer1 = new FeatureLayer({
+        url: "http://labgeo.recife.ifpe.edu.br:8080/arcgis/rest/services/TechPark/TP_Map/MapServer/1"
+      });
+
+  var map = new Map({
+    basemap: "osm",
+layers: [layer, layer1]
+  });
+  var view = new MapView({
+    container: "viewDiv",  // Reference to the scene div created in step 5
+    map: map,  // Reference to the map object created before the scene
+    zoom: 12,  // Sets the zoom level based on level of detail (LOD)
+    center: [-35, -8]  // Sets the center point of view in lon/lat
+  });
+});
+</script>
+</head>
+<body>
+  <div id="viewDiv"></div>
+</body>
+</html>
